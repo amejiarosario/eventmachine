@@ -145,9 +145,10 @@ SslContext_t::SslContext_t (bool is_server, const string &privkeyfile, const str
 	}
 
 	bIsServer = is_server;
-	pCtx = SSL_CTX_new (is_server ? SSLv23_server_method() : SSLv23_client_method());
+	// pCtx = SSL_CTX_new (is_server ? SSLv23_server_method() : SSLv23_client_method());
+	pCtx = SSL_CTX_new (is_server ? TLSv1_server_method() : TLSv1_client_method());
 	if (!pCtx)
-		throw std::runtime_error ("no SSL context");
+		throw std::runtime_error ("no SSL/TLSv1 context");
 
 	SSL_CTX_set_options (pCtx, SSL_OP_ALL);
 	//SSL_CTX_set_options (pCtx, (SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3));
